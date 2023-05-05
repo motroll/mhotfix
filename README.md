@@ -25,8 +25,11 @@ true,package.load会将这些返回值存起来
 因为require只会执行一次,比较粗暴一点的方法是
 
 if package.load[mod] then 
+
 	package.load[mod] = nil 
+
 end 
+
 require(mod)
 
 这样做,可以替换掉package.load里面的模块给替换掉,但是针对于 
@@ -52,8 +55,11 @@ Q1.1 加载newchunk
 _ENV. 只有lua5.1有setfenv函数。
 
 chunk = loadfile(path)
+
 local NewEnv = {}
+
 setfenv(chunk,NewEnv)
+
 chunk()
 
 为了兼容所有的版本,在代码中我们需要自己手动实现了一个setfenv的函数,这里代码不贴出
@@ -65,6 +71,7 @@ local NewEnv = {_G = _G}
 或者将设置元表
 
 local NewEnv = {} 
+
 setmetable(NewEnv,{__indexx = _G}) 
 
 
